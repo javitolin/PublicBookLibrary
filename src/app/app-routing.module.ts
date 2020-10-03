@@ -1,25 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AddBookComponent } from './books/add-book/add-book.component';
 import { BooksComponent } from './books/books.component';
 
 const appRoutes: Routes = [
-  {
-    path: '',
-    component: BooksComponent,
-    // children: [
-    //   { path: '', component: RecipeStartComponent },
-    //   { path: 'new', component: RecipeEditComponent },
-    //   {
-    //     path: ':id',
-    //     component: RecipeDetailComponent,
-    //     resolve: [RecipesResolverService]
-    //   },
-    //   {
-    //     path: ':id/edit',
-    //     component: RecipeEditComponent,
-    //     resolve: [RecipesResolverService]
-    //   }
-  }
+  { path: "", redirectTo: "/books", pathMatch: "full" },
+  { path: "books", component: BooksComponent, pathMatch: "full" },
+  { path: "books/new", component: AddBookComponent, pathMatch: "full" },
 ];
 
 @NgModule({
