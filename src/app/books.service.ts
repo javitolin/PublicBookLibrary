@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Book } from './books/book.model';
 import { Reader } from './readers/reader.model';
 
@@ -13,10 +14,12 @@ export class BooksService {
     new Book("Book 4", "Author 4", "Owner 4"),
     new Book("Book 5", "Author 5", "Owner 5"),
   ]
+
+  booksChanged = new Subject<Book[]>();
+
   constructor() { 
     this.books[2].is_available = false;
-    this.books[4].is_available = false;
-    this.books[4].readers = [ new Reader("Javi", new Date()) ];
+    this.books[2].readers = [ new Reader("Javi", new Date()) ];
   }
 
   getBooks() : Book[] {
@@ -25,15 +28,19 @@ export class BooksService {
 
   takeBook(bookId: number, readerName: string) : boolean {
     console.log("Take: " + bookId + " by " + readerName)
-    return this.books.find((b) => b.id == bookId)?.takeBook(readerName);
+    var response = this.books.find((b) => b.id == bookId)?.takeBook(readerName);
+    this.booksChanged.next(this.books.slice())
+    return response;
   }
 
   returnBook(bookId: number, readerName: string) : boolean {
-    return this.books.find((b) => b.id == bookId)?.returnBook(readerName);
+    var response = this.books.find((b) => b.id == bookId)?.returnBook(readerName);
+    this.booksChanged.next(this.books.slice())
+    return response;
   }
 
   addBook(book: Book) : void {
     this.books.push(book);
+    this.booksChanged.next(this.books.slice())
   }
-  
 }

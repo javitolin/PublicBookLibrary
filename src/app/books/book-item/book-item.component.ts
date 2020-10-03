@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { BooksService } from 'src/app/books.service';
 import { Book } from '../book.model';
 
+// TODO - Add search (name, author and owner), pagination, MongoDB
 @Component({
   selector: 'app-book-item',
   templateUrl: './book-item.component.html',
@@ -10,7 +11,8 @@ import { Book } from '../book.model';
 export class BookItemComponent implements OnInit {
   @Input() book: Book;
   readerName: string;
-
+  searchText = '';
+  
   constructor(private booksService: BooksService) { }
 
   ngOnInit(): void {

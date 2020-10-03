@@ -3,12 +3,14 @@ import { Reader } from '../readers/reader.model';
 
 export class Book {
     private static _id: number = 0;
+    private searchString: string;
     public id: number;
     public is_available: boolean = true
     public readers: Reader[] = []
 
     constructor(public title: string, public author: string, public owner: string) {
         this.id = Book._id++;
+        this.searchString = title + author + owner;
     }
 
     isAvailable(): boolean {
@@ -44,5 +46,9 @@ export class Book {
         }
 
         return this.readers[this.readers.length - 1];
+    }
+
+    isMatchQuery(query: string): boolean {
+        return this.searchString.toLowerCase().indexOf(query.toLowerCase()) >= 0;
     }
 }
