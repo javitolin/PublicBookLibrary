@@ -7,37 +7,37 @@ import { Reader } from './readers/reader.model';
   providedIn: 'root'
 })
 export class BooksService {
-  private books : Book[] = [];
+  private books: Book[] = [];
   booksChanged = new Subject<Book[]>();
 
-  constructor() { 
+  constructor() {
 
-    [1,2,3,4,5,6].forEach(i => {
+    for (var i = 0; i < 10; i++) {
       this.books.push(new Book("Title: " + i, "Author " + i, "Owner: " + i))
-    });
-    
+    }
+
     this.books[2].is_available = false;
-    this.books[2].readers = [ new Reader("Javi", new Date()) ];
+    this.books[2].readers = [new Reader("Javi", new Date())];
   }
 
-  getBooks() : Book[] {
+  getBooks(): Book[] {
     return this.books.slice()
   }
 
-  takeBook(bookId: number, readerName: string) : boolean {
+  takeBook(bookId: number, readerName: string): boolean {
     console.log("Take: " + bookId + " by " + readerName)
     var response = this.books.find((b) => b.id == bookId)?.takeBook(readerName);
     this.booksChanged.next(this.books.slice())
     return response;
   }
 
-  returnBook(bookId: number, readerName: string) : boolean {
+  returnBook(bookId: number, readerName: string): boolean {
     var response = this.books.find((b) => b.id == bookId)?.returnBook(readerName);
     this.booksChanged.next(this.books.slice())
     return response;
   }
 
-  addBook(book: Book) : void {
+  addBook(book: Book): void {
     this.books.push(book);
     this.booksChanged.next(this.books.slice())
   }
