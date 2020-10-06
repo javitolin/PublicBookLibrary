@@ -23,6 +23,7 @@ export class BooksComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.booksServiceSubscription?.unsubscribe();
     this.searchServiceSubscription?.unsubscribe();
+    this.booksService.Close();
   }
 
   ngOnInit(): void {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BooksService } from 'src/app/books.service';
+import { UserMessageService } from 'src/app/user-message.service';
 import { Book } from '../book.model';
 
 @Component({
@@ -14,7 +15,8 @@ export class AddBookComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private booksService: BooksService,
-    private router: Router) { }
+    private router: Router,
+    private userMessageService: UserMessageService) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -22,7 +24,10 @@ export class AddBookComponent implements OnInit {
 
   onSubmit() {
     var book = new Book(this.bookForm.value)
-    this.booksService.addBook(book);
+    this.booksService.addBook(book).toPromise().then(res => {
+      this.booksService.retrieveBooks();
+      this.userMessageService.setMessage(res['message'], res['success'])
+    });
     this.onCancel()
   }
 
