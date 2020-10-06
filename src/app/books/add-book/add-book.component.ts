@@ -21,7 +21,7 @@ export class AddBookComponent implements OnInit {
   }
 
   onSubmit() {
-    var book = new Book(this.bookForm.value["title"], this.bookForm.value["author"], this.bookForm.value["owner"])
+    var book = new Book(this.bookForm.value)
     this.booksService.addBook(book);
     this.onCancel()
   }
