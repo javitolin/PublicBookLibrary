@@ -7,17 +7,15 @@ import { Reader } from './readers/reader.model';
   providedIn: 'root'
 })
 export class BooksService {
-  private books : Book[] = [
-    new Book("Book 1", "Author 1", "Owner 1"),
-    new Book("Book 2", "Author 2", "Owner 2"),
-    new Book("Book 3", "Author 3", "Owner 3"),
-    new Book("Book 4", "Author 4", "Owner 4"),
-    new Book("Book 5", "Author 5", "Owner 5"),
-  ]
-
+  private books : Book[] = [];
   booksChanged = new Subject<Book[]>();
 
   constructor() { 
+
+    [1,2,3,4,5,6].forEach(i => {
+      this.books.push(new Book("Title: " + i, "Author " + i, "Owner: " + i))
+    });
+    
     this.books[2].is_available = false;
     this.books[2].readers = [ new Reader("Javi", new Date()) ];
   }

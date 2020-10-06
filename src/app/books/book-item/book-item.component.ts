@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { BooksService } from 'src/app/books.service';
 import { Book } from '../book.model';
 
-// TODO - Add search (name, author and owner), pagination, MongoDB
+// TODO - MongoDB
 @Component({
   selector: 'app-book-item',
   templateUrl: './book-item.component.html',

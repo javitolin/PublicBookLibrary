@@ -10,6 +10,8 @@ import { BooksComponent } from './books/books.component';
 import { HeaderComponent } from './header/header.component';
 import { AddBookComponent } from './books/add-book/add-book.component';
 import { FilterPipe } from './filter.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { FilterPipe } from './filter.pipe';
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
